@@ -706,12 +706,18 @@
       o.type = "sine";
 
       if(type==="ok"){
-        o.frequency.setValueAtTime(660, now);
-        o.frequency.exponentialRampToValueAtTime(990, now+0.12);
-      }else if(type==="bad"){
-        o.frequency.setValueAtTime(220, now);
-        o.frequency.exponentialRampToValueAtTime(160, now+0.14);
-      }else{
+  o.type = "triangle";
+  o.frequency.setValueAtTime(660, now);
+  o.frequency.linearRampToValueAtTime(880, now+0.08);
+  o.frequency.linearRampToValueAtTime(990, now+0.14);
+}else if(type==="bad"){
+  o.type = "sawtooth";
+  o.frequency.setValueAtTime(200, now);
+  o.frequency.linearRampToValueAtTime(120, now+0.18);
+}else if(type==="click"){
+  o.type = "square";
+  o.frequency.setValueAtTime(520, now);
+}else{
         o.frequency.setValueAtTime(440, now);
       }
 
@@ -741,6 +747,34 @@
       o.start(now);
       o.stop(now+0.36);
     }
+    function spinTick(step=0){
+  if(!soundOn) return;
+  ensureAudio();
+
+  const now = audioCtx.currentTime;
+  const o = audioCtx.createOscillator();
+  const g = audioCtx.createGain();
+
+  // tick: âm rất ngắn, nghe như click cơ học
+  o.type = "square";
+  const freq = 800 + (step % 6) * 30;
+  o.frequency.setValueAtTime(freq, now);
+
+  g.gain.setValueAtTime(0.0001, now);
+  g.gain.exponentialRampToValueAtTime(0.18, now+0.005);
+  g.gain.exponentialRampToValueAtTime(0.0001, now+0.05);
+
+  o.connect(g);
+  g.connect(audioCtx.destination);
+  o.start(now);
+  o.stop(now+0.06);
+}
+
+function spinEnd(){
+  // âm kết thúc "ding"
+  beep("ok");
+}
+
 
     /********************
      * Helpers
@@ -1099,18 +1133,31 @@
     });
     el("closeDrawer").addEventListener("click", ()=>drawer.classList.remove("show"));
 
-    el("spinBtn").addEventListener("click", async ()=>{
-      beep("click");
-      const rounds = 18 + Math.floor(Math.random()*8);
-      for(let i=0;i<rounds;i++){
-        spinNumber.textContent = 1 + Math.floor(Math.random()*35);
-        await delay(60 + i*6);
-      }
-      const final = 1 + Math.floor(Math.random()*35);
-      spinNumber.textContent = final;
-      spinInvite.textContent = `Mời bạn số ${final} lên bảng`;
-      beep("ok");
-    });
+ el("spinBtn").addEventListener("click", async ()=>{
+  beep("click");
+
+  // quay lâu + giảm tốc
+  const rounds = 45 + Math.floor(Math.random()*25);
+
+  for(let i=0;i<rounds;i++){
+    const n = 1 + Math.floor(Math.random()*35);
+    spinNumber.textContent = n;
+
+    // tick sound mỗi vòng
+    spinTick(i);
+
+    // tăng dần thời gian delay -> quay chậm dần
+    await delay(40 + i*10);
+  }
+
+  const final = 1 + Math.floor(Math.random()*35);
+  spinNumber.textContent = final;
+  spinInvite.textContent = `Mời bạn số ${final} lên bảng`;
+
+  // ding khi dừng
+  spinEnd();
+});
+
 
     el("copyBtn").addEventListener("click", async ()=>{
       const text = spinInvite.textContent || "";
@@ -1145,4 +1192,5 @@
   </script>
 </body>
 </html>
+
 
