@@ -410,7 +410,7 @@
   <div class="wrap">
     <div class="top">
       <div class="title">
-        <div class="badge">PV</div>
+        <div class="badge">Group 1</div>
         <div>
           <h1>Game Show: Passive Voice</h1>
           <div class="sub">10 câu ôn tập: <b>Past Simple Passive</b> & <b>Modal Passive</b> • Kéo thả / Trắc nghiệm / Tự nhập</div>
@@ -432,8 +432,8 @@
       <div class="bar"><div id="barFill"></div></div>
 
       <div class="tags">
-        <div class="tag type" id="tagType">TYPE: TRẮC NGHIỆM</div>
-        <div class="tag skill" id="tagSkill">SKILL: Past Simple Passive</div>
+        <div class="tag type" id="tagType">Kiểu: TRẮC NGHIỆM</div>
+        <div class="tag skill" id="tagSkill">Kĩ năng: Past Simple Passive</div>
       </div>
     </div>
 
@@ -454,7 +454,7 @@
   <!-- Bottom bar -->
   <div class="bottom">
     <div class="bottom-inner">
-      <button class="bbtn" id="hintBtn">💡 Hint</button>
+      <button class="bbtn" id="hintBtn">💡 Gợi ý</button>
       <button class="bbtn primary" id="nextBtn" disabled>Tiếp ➜</button>
     </div>
   </div>
@@ -805,7 +805,7 @@ function spinEnd(){
       explainBox.style.display = "none";
       explainBox.textContent = "";
       nextBtn.disabled = true;
-      hintBtn.textContent = "💡 Hint";
+      hintBtn.textContent = "💡 Gợi ý";
     }
 
     /********************
@@ -1077,7 +1077,7 @@ function spinEnd(){
     hintBtn.addEventListener("click", ()=>{
       const q = QUESTIONS[idx];
       beep("click");
-      hintBtn.textContent = "💡 Hint (đã mở)";
+      hintBtn.textContent = "💡 Gợi ý (đã mở)";
 
       if(q.type==="MCQ"){
         showExplain("Gợi ý:\n- Past Simple Passive: was/were + V3\n- Modal Passive: modal + be + V3");
@@ -1086,7 +1086,7 @@ function spinEnd(){
       }else{
         showExplain(`Hint: ${q.hint}`);
       }
-      setStatus("Đã bật hint 💡");
+      setStatus("Đã bật gợi ý 💡");
     });
 
     nextBtn.addEventListener("click", ()=>{
@@ -1099,7 +1099,7 @@ function spinEnd(){
         idx++;
         render();
       }else{
-        qTitle.textContent = "🎉 Hoàn thành! Cảm ơn cô và các bạn đã lắng nghe bài thuyết trình của nhóm em !";
+        qTitle.textContent = "🎉 Hoàn  Cảm ơn cô và các bạn đã lắng nghe bài thuyết trình của nhóm em !";
         qInstruction.textContent = "Bạn đã làm xong 10 câu ôn tập Passive Voice.";
         qBody.innerHTML = `
           <div class="grid">
@@ -1114,7 +1114,7 @@ function spinEnd(){
         `;
         nextBtn.disabled = true;
         barFill.style.width = "100%";
-        setStatus("Kết thúc game show 🎬");
+        setStatus("Kết thúc bài trình bày cảu nhóm 1 !");
 
         document.getElementById("summaryBtn").addEventListener("click", ()=>{
           showExplain(
@@ -1212,6 +1212,7 @@ el("spinBtn").addEventListener("click", async ()=>{
   </script>
 </body>
 </html>
+
 
 
 
