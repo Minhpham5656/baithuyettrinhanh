@@ -1133,31 +1133,51 @@ function spinEnd(){
     });
     el("closeDrawer").addEventListener("click", ()=>drawer.classList.remove("show"));
 
- el("spinBtn").addEventListener("click", async ()=>{
+el("spinBtn").addEventListener("click", async ()=>{
   beep("click");
 
-  // quay lâu + giảm tốc
-  const rounds = 45 + Math.floor(Math.random()*25);
+  // KHÓA nút để tránh bấm liên tục khi đang quay
+  const btn = el("spinBtn");
+  btn.disabled = true;
+  btn.textContent = "⏳ ĐANG QUAY...";
 
-  for(let i=0;i<rounds;i++){
-    const n = 1 + Math.floor(Math.random()*35);
+  // ==========
+  // SPIN ~ 30s
+  // ==========
+  // 30 giây = 30000ms
+  // Ta cho quay khoảng 220–260 bước.
+  // Delay tăng từ 35ms lên ~220ms => tổng ~30s
+  const steps = 230 + Math.floor(Math.random() * 30); // 230–259 bước
+
+  // chọn số cuối ngay từ đầu để "kịch tính"
+  const final = 1 + Math.floor(Math.random() * 35);
+
+  for(let i=0;i<steps;i++){
+    // trong lúc quay hiển thị số ngẫu nhiên
+    const n = 1 + Math.floor(Math.random() * 35);
     spinNumber.textContent = n;
 
-    // tick sound mỗi vòng
-    spinTick(i);
+    // tick sound (giảm tần suất cho đỡ ồn)
+    if(i % 2 === 0) spinTick(i);
 
-    // tăng dần thời gian delay -> quay chậm dần
-    await delay(40 + i*10);
+    // ease-out: càng về cuối càng chậm
+    // delay tăng dần từ 35ms -> 220ms
+    const t = i / (steps - 1);
+    const delayMs = 35 + (220 - 35) * (t * t); // t^2 => mượt
+    await delay(delayMs);
   }
 
-  const final = 1 + Math.floor(Math.random()*35);
+  // chốt số cuối
   spinNumber.textContent = final;
   spinInvite.textContent = `Mời bạn số ${final} lên bảng`;
 
-  // ding khi dừng
+  // ding kết thúc
   spinEnd();
-});
 
+  // mở lại nút
+  btn.disabled = false;
+  btn.textContent = "🎲 QUAY";
+});
 
     el("copyBtn").addEventListener("click", async ()=>{
       const text = spinInvite.textContent || "";
@@ -1192,5 +1212,6 @@ function spinEnd(){
   </script>
 </body>
 </html>
+
 
 
