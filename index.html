@@ -3,13 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Passive Voice Game Show (10 Questions)</title>
+  <title>Passive Voice – Game Show (Fullscreen)</title>
   <style>
     :root{
       --bg1:#0b1020;
       --bg2:#121a35;
       --card:#0f1630cc;
-      --card2:#0f1630;
       --text:#eaf0ff;
       --muted:#b8c3e6;
       --accent:#7c5cff;
@@ -23,58 +22,29 @@
     body{
       margin:0;
       min-height:100vh;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
       color:var(--text);
       background:
         radial-gradient(1200px 700px at 20% 20%, rgba(124,92,255,.18), transparent 55%),
         radial-gradient(1000px 650px at 80% 30%, rgba(37,211,102,.14), transparent 50%),
         linear-gradient(180deg, var(--bg1), var(--bg2));
-      padding-bottom: 84px; /* for bottom bar */
+      padding-bottom: 84px;
     }
-    .wrap{
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 18px 16px 0;
-    }
+    .wrap{max-width: 980px; margin: 0 auto; padding: 18px 16px 0;}
 
     /* Header */
-    .top{
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
-      justify-content:space-between;
-      flex-wrap:wrap;
-      margin-bottom: 12px;
-    }
-    .title{
-      display:flex;
-      gap:12px;
-      align-items:center;
-    }
+    .top{display:flex; gap:12px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; margin-bottom: 12px;}
+    .title{display:flex; gap:12px; align-items:center;}
     .badge{
       width:46px;height:46px;border-radius:14px;
       background: linear-gradient(135deg, rgba(124,92,255,.9), rgba(37,211,102,.75));
       display:grid;place-items:center;
       box-shadow: var(--shadow);
-      font-weight:900;
-      letter-spacing:.5px;
+      font-weight:900; letter-spacing:.5px;
     }
-    h1{
-      font-size: 20px;
-      margin: 0;
-      line-height: 1.15;
-    }
-    .sub{
-      margin: 4px 0 0;
-      color: var(--muted);
-      font-size: 13px;
-    }
-    .right-tools{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      margin-top: 2px;
-    }
+    h1{font-size: 20px; margin: 0; line-height: 1.15;}
+    .sub{margin: 4px 0 0; color: var(--muted); font-size: 13px;}
+    .right-tools{display:flex; gap:10px; align-items:center; margin-top: 2px;}
     .iconbtn{
       border: 1px solid rgba(255,255,255,.18);
       background: rgba(255,255,255,.06);
@@ -98,18 +68,9 @@
       box-shadow: var(--shadow);
       margin: 12px 0 14px;
     }
-    .progress-line{
-      display:flex; justify-content:space-between; align-items:center;
-      gap:10px; margin-bottom:10px;
-    }
-    .progress-line .count{
-      font-weight:800;
-      letter-spacing:.2px;
-    }
-    .progress-line .note{
-      color: var(--muted);
-      font-size: 13px;
-    }
+    .progress-line{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:10px;}
+    .progress-line .count{font-weight:800; letter-spacing:.2px;}
+    .progress-line .note{color: var(--muted); font-size: 13px;}
     .bar{
       height: 12px;
       background: rgba(255,255,255,.09);
@@ -126,10 +87,7 @@
     }
 
     /* Tags */
-    .tags{
-      display:flex; gap:10px; flex-wrap:wrap;
-      margin: 10px 0 0;
-    }
+    .tags{display:flex; gap:10px; flex-wrap:wrap; margin: 10px 0 0;}
     .tag{
       padding: 7px 10px;
       border-radius: 999px;
@@ -141,10 +99,7 @@
     }
     .tag.type{ border-color: rgba(124,92,255,.45); }
     .tag.skill{ border-color: rgba(37,211,102,.45); }
-    .tag.warn{
-      border-color: rgba(255,204,0,.42);
-      color: #ffe680;
-    }
+    .tag.warn{ border-color: rgba(255,204,0,.42); color: #ffe680; }
 
     /* Main card */
     .card{
@@ -154,56 +109,15 @@
       padding: 16px 16px 14px;
       box-shadow: var(--shadow);
     }
-    .q-head{
-      display:flex; gap:12px; justify-content:space-between; align-items:flex-start;
-      flex-wrap:wrap;
-      margin-bottom: 8px;
-    }
-    .q-title{
-      font-size: 18px;
-      margin: 0;
-      font-weight:900;
-      letter-spacing:.2px;
-    }
-    .q-instruction{
-      color: var(--muted);
-      font-size: 13px;
-      margin: 4px 0 0;
-      line-height: 1.35;
-    }
+    .q-head{display:flex; gap:12px; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; margin-bottom: 8px;}
+    .q-title{font-size: 18px; margin: 0; font-weight:900; letter-spacing:.2px;}
+    .q-instruction{color: var(--muted); font-size: 13px; margin: 4px 0 0; line-height: 1.35;}
 
-    /* Common UI parts */
-    .grid{
-      display:grid;
-      gap: 12px;
-      margin-top: 14px;
-    }
-    .btn{
-      width:100%;
-      border-radius: 16px;
-      padding: 12px 12px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.07);
-      color: var(--text);
-      cursor:pointer;
-      transition: transform .15s ease, background .15s ease, border-color .15s ease;
-      user-select:none;
-      text-align:left;
-      font-size: 15px;
-      font-weight:800;
-    }
-    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.095); }
-    .btn:active{ transform: translateY(0); }
+    .grid{display:grid; gap: 12px; margin-top: 14px;}
 
-    .answers{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-    }
-    @media(min-width:700px){
-      .answers{ grid-template-columns: 1fr 1fr; }
-    }
-
+    /* MCQ */
+    .answers{display:grid; grid-template-columns: 1fr; gap: 10px;}
+    @media(min-width:700px){.answers{ grid-template-columns: 1fr 1fr; }}
     .answer-card{
       border-radius: 16px;
       padding: 14px 14px;
@@ -219,19 +133,21 @@
       overflow:hidden;
     }
     .answer-card:hover{ transform: translateY(-1px); background: rgba(255,255,255,.085);}
-    .answer-card.selected{
-      border-color: rgba(124,92,255,.7);
-      outline: 2px solid rgba(124,92,255,.22);
-    }
-    .answer-card.correct{
-      border-color: rgba(37,211,102,.95);
-      outline: 2px solid rgba(37,211,102,.25);
-    }
-    .answer-card.wrong{
-      border-color: rgba(255,77,77,.95);
-      outline: 2px solid rgba(255,77,77,.22);
+    .answer-card.selected{border-color: rgba(124,92,255,.7); outline: 2px solid rgba(124,92,255,.22);}
+    .answer-card.correct{border-color: rgba(37,211,102,.95); outline: 2px solid rgba(37,211,102,.25);}
+    .answer-card.wrong{border-color: rgba(255,77,77,.95); outline: 2px solid rgba(255,77,77,.22);}
+
+    .sentence{
+      padding: 14px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      font-weight:900;
+      line-height:1.6;
+      word-spacing:2px;
     }
 
+    /* Explain */
     .explain{
       margin-top: 12px;
       padding: 12px 12px;
@@ -241,16 +157,11 @@
       color: var(--muted);
       font-size: 13px;
       line-height: 1.45;
+      white-space: pre-wrap;
     }
 
     /* Typing */
-    .inputrow{
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      align-items:stretch;
-      margin-top: 12px;
-    }
+    .inputrow{display:flex; gap: 10px; flex-wrap:wrap; align-items:stretch; margin-top: 12px;}
     input[type="text"]{
       flex: 1 1 240px;
       min-height: 48px;
@@ -267,28 +178,20 @@
     .sendbtn{
       flex: 0 0 150px;
       text-align:center;
-      font-weight:900;
+      font-weight:1000;
+      border-radius: 16px;
+      padding: 12px 12px;
+      cursor:pointer;
+      border:none;
+      color:white;
       background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(37,211,102,.75));
-      border: none;
+      transition: transform .15s ease;
     }
-    .sendbtn:hover{ background: linear-gradient(135deg, rgba(124,92,255,1), rgba(37,211,102,.9));}
+    .sendbtn:hover{ transform: translateY(-1px); }
 
-    .smallnote{
-      margin-top: 8px;
-      color: rgba(234,240,255,.62);
-      font-size: 12px;
-    }
+    .smallnote{margin-top: 8px; color: rgba(234,240,255,.62); font-size: 12px;}
 
     /* Drag & Drop */
-    .sentence{
-      padding: 14px 14px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      font-weight:900;
-      line-height:1.6;
-      word-spacing:2px;
-    }
     .blank{
       display:inline-block;
       min-width: 160px;
@@ -301,12 +204,8 @@
       margin: 0 6px;
       transform: translateY(-1px);
     }
-    .token-pool{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top: 12px;
-    }
+    .blank.filled{border-style: solid; border-color: rgba(255,255,255,.18); background: rgba(0,0,0,.16);}
+    .token-pool{display:flex; flex-wrap:wrap; gap:10px; margin-top: 12px;}
     .token{
       padding: 10px 12px;
       border-radius: 999px;
@@ -318,11 +217,6 @@
       box-shadow: 0 10px 30px rgba(0,0,0,.18);
     }
     .token:active{ cursor:grabbing; }
-    .blank.filled{
-      border-style: solid;
-      border-color: rgba(255,255,255,.18);
-      background: rgba(0,0,0,.16);
-    }
 
     /* Bottom bar */
     .bottom{
@@ -361,20 +255,12 @@
       background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(37,211,102,.78));
       border:none;
     }
-    .bbtn.primary:hover{
-      background: linear-gradient(135deg, rgba(124,92,255,1), rgba(37,211,102,.92));
-    }
-    .bbtn:disabled{
-      opacity:.45;
-      cursor:not-allowed;
-      transform:none !important;
-    }
+    .bbtn:disabled{opacity:.45; cursor:not-allowed; transform:none !important;}
 
-    /* Modal confirm */
+    /* Confirm modal */
     .modal{
       position:fixed; inset:0;
-      display:none;
-      place-items:center;
+      display:none; place-items:center;
       background: rgba(0,0,0,.5);
       z-index: 50;
       padding: 16px;
@@ -388,29 +274,14 @@
       box-shadow: 0 20px 70px rgba(0,0,0,.55);
       padding: 16px;
     }
-    .modal-box h3{
-      margin:0 0 6px;
-      font-size: 18px;
-      font-weight: 1000;
-    }
-    .modal-box p{
-      margin:0 0 12px;
-      color: var(--muted);
-      line-height: 1.45;
-      font-size: 14px;
-    }
-    .modal-actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
+    .modal-box h3{margin:0 0 6px; font-size: 18px; font-weight: 1000;}
+    .modal-box p{margin:0 0 12px; color: var(--muted); line-height: 1.45; font-size: 14px;}
+    .modal-actions{display:flex; gap:10px; flex-wrap:wrap;}
     .modal-actions .bbtn{ padding: 12px 12px; }
 
-    /* Toolbox spin */
+    /* Toolbox drawer */
     .drawer{
-      position:fixed;
-      top: 0; right: 0;
-      height: 100%;
+      position:fixed; top: 0; right: 0; height: 100%;
       width: min(420px, 92vw);
       background: rgba(10,14,28,.92);
       border-left: 1px solid rgba(255,255,255,.12);
@@ -421,11 +292,7 @@
       padding: 16px;
     }
     .drawer.show{ transform: translateX(0%); }
-    .drawer h3{
-      margin: 0 0 6px;
-      font-size: 18px;
-      font-weight: 1000;
-    }
+    .drawer h3{margin: 0 0 6px; font-size: 18px; font-weight: 1000;}
     .drawer .muted{ color: var(--muted); font-size: 13px; line-height:1.45; }
     .spinbox{
       margin-top: 14px;
@@ -446,40 +313,100 @@
       background-clip:text;
       color: transparent;
     }
-    .invite{
-      font-weight: 900;
-      margin-top: 6px;
-      color: rgba(234,240,255,.9);
-    }
+    .invite{font-weight: 900; margin-top: 6px; color: rgba(234,240,255,.9);}
 
-    /* Animations */
-    @keyframes pop {
-      0%{ transform: scale(1); }
-      45%{ transform: scale(1.04); }
-      100%{ transform: scale(1); }
-    }
-    @keyframes shake {
-      0%{ transform: translateX(0); }
-      20%{ transform: translateX(-8px); }
-      40%{ transform: translateX(8px); }
-      60%{ transform: translateX(-6px); }
-      80%{ transform: translateX(6px); }
-      100%{ transform: translateX(0); }
-    }
-    .pop{ animation: pop .35s ease; }
-    .shake{ animation: shake .35s ease; }
-
-    /* Footer tiny */
-    .tiny{
-      margin-top: 10px;
-      color: rgba(234,240,255,.45);
-      font-size: 11px;
+    /* Fullscreen Gate Overlay */
+    #fsGate{
+      position:fixed; inset:0; z-index:9999;
+      display:grid; place-items:center;
+      background: radial-gradient(1000px 700px at 20% 20%, rgba(124,92,255,.25), transparent 55%),
+                  radial-gradient(900px 650px at 80% 30%, rgba(37,211,102,.18), transparent 50%),
+                  rgba(0,0,0,.55);
+      backdrop-filter: blur(10px);
+      padding:24px;
       text-align:center;
     }
+    .fsbox{
+      width:min(620px, 96vw);
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(15,22,48,.72);
+      box-shadow: 0 30px 90px rgba(0,0,0,.6);
+      padding: 18px 16px;
+    }
+    .fsbox .big{
+      font-size: 20px;
+      font-weight: 1000;
+      margin: 2px 0 6px;
+    }
+    .fsbox .desc{
+      color: rgba(234,240,255,.78);
+      line-height: 1.55;
+      margin: 0 0 12px;
+      font-size: 14px;
+    }
+    .fsbox .row{
+      display:flex; gap:10px; flex-wrap:wrap; justify-content:center;
+      margin-top: 10px;
+    }
+    .startbtn{
+      font-size: 16px;
+      font-weight: 1000;
+      cursor:pointer;
+      border:none;
+      border-radius: 18px;
+      padding: 14px 16px;
+      color:white;
+      background: linear-gradient(135deg,#7c5cff,#25d366);
+      min-width: 240px;
+      transition: transform .15s ease;
+      user-select:none;
+    }
+    .startbtn:hover{ transform: translateY(-1px); }
+    .ghostbtn{
+      font-size: 14px;
+      font-weight: 900;
+      cursor:pointer;
+      border-radius: 18px;
+      padding: 14px 16px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+      color: white;
+      min-width: 240px;
+      user-select:none;
+    }
+    .tiny{margin-top: 10px; color: rgba(234,240,255,.5); font-size: 11px; text-align:center;}
+
+    /* Animations */
+    @keyframes pop {0%{transform:scale(1)}45%{transform:scale(1.04)}100%{transform:scale(1)}}
+    @keyframes shake {0%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}100%{transform:translateX(0)}}
+    .pop{ animation: pop .35s ease; }
+    .shake{ animation: shake .35s ease; }
   </style>
 </head>
 
 <body>
+
+  <!-- FULLSCREEN GATE -->
+  <div id="fsGate">
+    <div class="fsbox">
+      <div class="big">🎮 Passive Voice Game Show</div>
+      <p class="desc">
+        Trình duyệt <b>không cho tự bấm F11</b> vì bảo mật.<br>
+        Nhưng bạn có thể vào <b>Fullscreen</b> bằng nút bên dưới (tương đương).
+      </p>
+
+      <div class="row">
+        <button id="startFS" class="startbtn">▶ BẮT ĐẦU (FULLSCREEN)</button>
+        <button id="skipFS" class="ghostbtn">Tiếp tục không fullscreen</button>
+      </div>
+
+      <div class="tiny">
+        Tip: khi fullscreen, nhấn <b>Esc</b> để thoát.
+      </div>
+    </div>
+  </div>
+
   <div class="wrap">
     <div class="top">
       <div class="title">
@@ -503,9 +430,11 @@
         <div class="note" id="statusText">Chọn đáp án để bắt đầu 🎯</div>
       </div>
       <div class="bar"><div id="barFill"></div></div>
+
       <div class="tags">
         <div class="tag type" id="tagType">TYPE: TRẮC NGHIỆM</div>
         <div class="tag skill" id="tagSkill">SKILL: Past Simple Passive</div>
+        <div class="tag warn" id="tagWarn">⚠️ Sai là bị phạt (chỉ vui thôi 😄)</div>
       </div>
     </div>
 
@@ -518,9 +447,8 @@
       </div>
 
       <div id="qBody"></div>
-
       <div class="explain" id="explainBox" style="display:none;"></div>
-      <div class="tiny">Tip: Với câu tự nhập, không phân biệt hoa thường và không cần dấu chấm.</div>
+      <div class="tiny">Tip: Với câu tự nhập, không phân biệt hoa thường và không cần dấu chấm/dấu hỏi.</div>
     </div>
   </div>
 
@@ -568,15 +496,36 @@
 
   <script>
     /********************
+     * FULLSCREEN GATE
+     ********************/
+    async function requestFull(){
+      const root = document.documentElement;
+      try{
+        if(root.requestFullscreen) await root.requestFullscreen();
+        else if(root.webkitRequestFullscreen) await root.webkitRequestFullscreen();
+      }catch(e){}
+    }
+    function hideGate(){
+      const gate = document.getElementById("fsGate");
+      if(gate) gate.style.display = "none";
+    }
+    document.getElementById("startFS").addEventListener("click", async ()=>{
+      await requestFull();
+      hideGate();
+    });
+    document.getElementById("skipFS").addEventListener("click", ()=>{
+      hideGate();
+    });
+
+    /********************
      * Data: 10 questions
      ********************/
     const QUESTIONS = [
-      // MCQ
-      {
+      { // 1 MCQ
         type: "MCQ",
         skill: "Past Simple Passive",
         title: "Chọn câu bị động đúng (Quá khứ đơn)",
-        instruction: "Chọn đáp án đúng. Sau đó hệ thống sẽ hỏi bạn “Chốt đáp án?”",
+        instruction: "Chọn đáp án → hệ thống hỏi “Chốt đáp án?”",
         prompt: "They built this bridge in 2010.",
         choices: [
           "This bridge built in 2010.",
@@ -587,13 +536,11 @@
         answerIndex: 1,
         explain: "Quá khứ đơn bị động: S + was/were + V3. 'bridge' số ít ⇒ was built."
       },
-
-      // Typing
-      {
+      { // 2 TYPE
         type: "TYPE",
         skill: "Past Simple Passive (Negative)",
         title: "Tự nhập: đổi sang bị động (phủ định)",
-        instruction: "Hãy viết câu bị động ở quá khứ đơn phủ định. Không cần dấu chấm. Không phân biệt hoa/thường.",
+        instruction: "Viết câu bị động QKĐ phủ định. Không cần dấu chấm. Không phân biệt hoa/thường.",
         prompt: "They did not finish the homework.",
         accepted: [
           "the homework was not finished",
@@ -604,9 +551,7 @@
         hint: "Cấu trúc: S + was/were + not + V3",
         explain: "homework (không đếm được) ⇒ was not finished."
       },
-
-      // Drag
-      {
+      { // 3 DRAG
         type: "DRAG",
         skill: "Modal Passive (Word order)",
         title: "Kéo thả: hoàn thành câu bị động với modal",
@@ -617,13 +562,11 @@
         hint: "Modal passive: modal + be + V3",
         explain: "Với modal: must + be + followed."
       },
-
-      // MCQ
-      {
+      { // 4 MCQ
         type: "MCQ",
         skill: "Modal Passive",
         title: "Chọn đáp án đúng (Modal)",
-        instruction: "Nhấn chọn đáp án đúng → Chốt đáp án.",
+        instruction: "Nhấn chọn → Chốt.",
         prompt: "People should protect the environment.",
         choices: [
           "The environment should protected.",
@@ -634,9 +577,7 @@
         answerIndex: 1,
         explain: "Modal passive: should + be + V3 ⇒ should be protected."
       },
-
-      // Typing
-      {
+      { // 5 TYPE
         type: "TYPE",
         skill: "Past Simple Passive (Question)",
         title: "Tự nhập: câu hỏi Yes/No (bị động QKĐ)",
@@ -649,9 +590,7 @@
         hint: "QKĐ bị động nghi vấn: Was/Were + S + V3 ...?",
         explain: "cakes số nhiều ⇒ Were these cakes made…"
       },
-
-      // Drag
-      {
+      { // 6 DRAG
         type: "DRAG",
         skill: "Past Simple Passive",
         title: "Kéo thả: chọn was/were + V3 đúng",
@@ -662,9 +601,7 @@
         hint: "phone số ít ⇒ was + V3",
         explain: "My phone (số ít) ⇒ was stolen."
       },
-
-      // MCQ
-      {
+      { // 7 MCQ
         type: "MCQ",
         skill: "Past Simple Passive (Irregular V3)",
         title: "Chọn dạng V3 đúng",
@@ -679,13 +616,11 @@
         answerIndex: 1,
         explain: "steal – stole – stolen ⇒ bị động: was stolen."
       },
-
-      // Typing
-      {
+      { // 8 TYPE
         type: "TYPE",
         skill: "Modal Passive (Negative)",
         title: "Tự nhập: Modal bị động phủ định",
-        instruction: "Đổi sang bị động: “cannot”. Không cần dấu chấm.",
+        instruction: "Đổi sang bị động dùng “cannot”. Không cần dấu chấm.",
         prompt: "We cannot open this door.",
         accepted: [
           "this door cannot be opened",
@@ -694,9 +629,7 @@
         hint: "cannot + be + V3",
         explain: "Modal passive phủ định: cannot be opened."
       },
-
-      // Drag
-      {
+      { // 9 DRAG
         type: "DRAG",
         skill: "Modal Passive (Structure)",
         title: "Kéo thả: modal + be + V3",
@@ -707,13 +640,11 @@
         hint: "can + be + V3",
         explain: "can be finished (bị động với can)."
       },
-
-      // MCQ
-      {
+      { // 10 MCQ
         type: "MCQ",
         skill: "Mixed (Past vs Modal)",
-        title: "Phân biệt: dùng was/were hay modal + be?",
-        instruction: "Chọn câu đúng theo nghĩa: “Phải được hoàn thành hôm qua”.",
+        title: "Phân biệt: was/were hay modal + be?",
+        instruction: "Chọn câu đúng theo nghĩa “Phải được nộp hôm qua”.",
         prompt: "Choose the correct sentence:",
         choices: [
           "The report was submit yesterday.",
@@ -755,13 +686,12 @@
     const confirmYes = el("confirmYes");
     const confirmNo = el("confirmNo");
 
-    // Toolbox
     const drawer = el("drawer");
     const spinNumber = el("spinNumber");
     const spinInvite = el("spinInvite");
 
     /********************
-     * Web Audio (no mp3)
+     * Web Audio
      ********************/
     function ensureAudio(){
       if(!audioCtx){
@@ -772,22 +702,19 @@
     function beep(type="ok"){
       if(!soundOn) return;
       ensureAudio();
-
       const now = audioCtx.currentTime;
       const o = audioCtx.createOscillator();
       const g = audioCtx.createGain();
-
       o.type = "sine";
+
       if(type==="ok"){
         o.frequency.setValueAtTime(660, now);
         o.frequency.exponentialRampToValueAtTime(990, now+0.12);
       }else if(type==="bad"){
         o.frequency.setValueAtTime(220, now);
         o.frequency.exponentialRampToValueAtTime(160, now+0.14);
-      }else if(type==="click"){
-        o.frequency.setValueAtTime(440, now);
       }else{
-        o.frequency.setValueAtTime(520, now);
+        o.frequency.setValueAtTime(440, now);
       }
 
       g.gain.setValueAtTime(0.0001, now);
@@ -799,11 +726,9 @@
       o.start(now);
       o.stop(now+0.2);
     }
-
     function suspense(){
       if(!soundOn) return;
       ensureAudio();
-
       const now = audioCtx.currentTime;
       const o = audioCtx.createOscillator();
       const g = audioCtx.createGain();
@@ -822,24 +747,26 @@
     /********************
      * Helpers
      ********************/
-    function setStatus(text){
-      statusText.textContent = text;
-    }
+    const delay = (ms)=> new Promise(res=>setTimeout(res, ms));
     function normalize(s){
-      return (s||"")
-        .trim()
-        .toLowerCase()
+      return (s||"").trim().toLowerCase()
         .replace(/[?.!]+$/g,"")
         .replace(/\s+/g," ");
     }
-    function delay(ms){ return new Promise(res=>setTimeout(res, ms)); }
+    function escapeHtml(str){
+      return (str+"")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;");
+    }
+    function setStatus(t){ statusText.textContent = t; }
 
     function updateProgress(){
       const total = QUESTIONS.length;
       countText.textContent = `Câu ${idx+1}/${total}`;
-      barFill.style.width = `${((idx)/total)*100}%`;
+      barFill.style.width = `${(idx/total)*100}%`;
     }
-
     function resetForNewQuestion(){
       selectedIndex = null;
       locked = false;
@@ -862,7 +789,6 @@
 
       qTitle.textContent = q.title;
       qInstruction.textContent = q.instruction;
-
       qBody.innerHTML = "";
 
       if(q.type==="MCQ") renderMCQ(q);
@@ -880,23 +806,23 @@
         <div class="answers" id="answers"></div>
       `;
       qBody.appendChild(block);
-
       const answersEl = block.querySelector("#answers");
-      q.choices.forEach((ch, i)=>{
+
+      q.choices.forEach((ch,i)=>{
         const a = document.createElement("div");
         a.className = "answer-card";
-        a.innerHTML = `${escapeHtml(ch)}`;
+        a.innerHTML = escapeHtml(ch);
+
         a.addEventListener("click", ()=>{
           if(locked) return;
           beep("click");
-          // select
           [...answersEl.children].forEach(x=>x.classList.remove("selected"));
           a.classList.add("selected");
           selectedIndex = i;
-          setStatus("Đã chọn ✅ Nhấn lại để chốt (hoặc bấm đáp án khác).");
-          // open confirm modal
           openConfirmModal(ch);
+          setStatus("Đã chọn ✅ Chờ chốt đáp án…");
         });
+
         answersEl.appendChild(a);
       });
     }
@@ -908,22 +834,17 @@
         <div class="sentence"><span style="color:rgba(234,240,255,.65)">Đề bài:</span> ${escapeHtml(q.prompt)}</div>
         <div class="inputrow">
           <input id="typeInput" type="text" placeholder="Nhập câu trả lời của bạn…" autocomplete="off" />
-          <button class="btn sendbtn" id="sendBtn">GỬI</button>
+          <button class="sendbtn" id="sendBtn">GỬI</button>
         </div>
         <div class="smallnote">Gợi ý nhập: không phân biệt hoa thường, không cần dấu chấm/dấu hỏi.</div>
       `;
       qBody.appendChild(block);
-
       const inp = block.querySelector("#typeInput");
       const send = block.querySelector("#sendBtn");
-
-      const submit = ()=> checkTyping(inp.value);
+      const submit = ()=>checkTyping(inp.value);
       send.addEventListener("click", submit);
-      inp.addEventListener("keydown", (e)=>{
-        if(e.key==="Enter"){
-          e.preventDefault();
-          submit();
-        }
+      inp.addEventListener("keydown",(e)=>{
+        if(e.key==="Enter"){ e.preventDefault(); submit(); }
       });
     }
 
@@ -931,15 +852,16 @@
       const block = document.createElement("div");
       block.className = "grid";
 
-      // build sentence with blank span
       const sent = document.createElement("div");
       sent.className = "sentence";
+
       const before = document.createElement("span");
       before.textContent = q.sentenceParts[0] + " ";
+
       const blank = document.createElement("span");
       blank.className = "blank";
       blank.textContent = "KÉO VÀO ĐÂY";
-      blank.setAttribute("data-filled", "0");
+
       const after = document.createElement("span");
       after.textContent = " " + q.sentenceParts[2];
 
@@ -956,25 +878,20 @@
         t.textContent = tok;
         t.draggable = true;
 
-        t.addEventListener("dragstart", (e)=>{
+        t.addEventListener("dragstart",(e)=>{
           if(locked) return;
           e.dataTransfer.setData("text/plain", tok);
-          // nice drag image?
         });
 
         pool.appendChild(t);
       });
 
-      block.appendChild(sent);
-      block.appendChild(pool);
-
-      // drop handlers
-      blank.addEventListener("dragover", (e)=>{
+      blank.addEventListener("dragover",(e)=>{
         if(locked) return;
         e.preventDefault();
         blank.style.borderColor = "rgba(37,211,102,.8)";
       });
-      blank.addEventListener("dragleave", ()=>{
+      blank.addEventListener("dragleave",()=>{
         blank.style.borderColor = "rgba(124,92,255,.55)";
       });
       blank.addEventListener("drop", async (e)=>{
@@ -986,21 +903,19 @@
 
         blank.textContent = tok;
         blank.classList.add("filled");
-        blank.setAttribute("data-filled", "1");
-
-        // check immediately but with suspense delay
         await checkDrag(tok, blank);
       });
 
+      block.appendChild(sent);
+      block.appendChild(pool);
       qBody.appendChild(block);
       setStatus("Kéo đáp án vào ô trống 👇");
     }
 
     /********************
-     * Checking
+     * Confirm modal
      ********************/
     function openConfirmModal(choiceText){
-      if(choiceText == null) return;
       confirmText.textContent = `Bạn chọn: "${choiceText}"`;
       confirmModal.classList.add("show");
       confirmModal.setAttribute("aria-hidden","false");
@@ -1009,7 +924,6 @@
       confirmModal.classList.remove("show");
       confirmModal.setAttribute("aria-hidden","true");
     }
-
     confirmYes.addEventListener("click", async ()=>{
       if(locked) return;
       closeConfirmModal();
@@ -1019,16 +933,22 @@
       closeConfirmModal();
       setStatus("Bạn có thể chọn đáp án khác 👍");
     });
-    confirmModal.addEventListener("click", (e)=>{
-      if(e.target === confirmModal) closeConfirmModal();
+    confirmModal.addEventListener("click",(e)=>{
+      if(e.target===confirmModal) closeConfirmModal();
     });
+
+    /********************
+     * Checking
+     ********************/
+    function showExplain(text){
+      explainBox.style.display = "block";
+      explainBox.textContent = text;
+    }
 
     async function checkMCQ(){
       const q = QUESTIONS[idx];
-      if(selectedIndex === null){
-        setStatus("Bạn chưa chọn đáp án.");
-        return;
-      }
+      if(selectedIndex===null){ setStatus("Bạn chưa chọn đáp án."); return; }
+
       locked = true;
       setStatus("Đang kiểm tra… ⏳");
       suspense();
@@ -1038,19 +958,18 @@
       const cards = [...answersEl.children];
       const correct = q.answerIndex;
 
-      // mark correct
       cards[correct].classList.add("correct","pop");
 
       if(selectedIndex === correct){
         beep("ok");
-        setStatus("ĐÚNG ✅ Tuyệt!");
+        setStatus("ĐÚNG ✅");
       }else{
         beep("bad");
         cards[selectedIndex].classList.add("wrong","shake");
-        setStatus("SAI ❌ Xem giải thích bên dưới.");
+        setStatus("SAI ❌ Xem giải thích.");
       }
 
-      showExplain(q.explain, q);
+      showExplain(q.explain);
       nextBtn.disabled = false;
       barFill.style.width = `${((idx+1)/QUESTIONS.length)*100}%`;
     }
@@ -1060,10 +979,7 @@
       if(locked) return;
 
       const v = normalize(value);
-      if(!v){
-        setStatus("Bạn chưa nhập câu trả lời.");
-        return;
-      }
+      if(!v){ setStatus("Bạn chưa nhập câu trả lời."); return; }
 
       locked = true;
       setStatus("Đang chấm… ⏳");
@@ -1071,26 +987,24 @@
       await delay(650);
 
       const ok = q.accepted.map(normalize).includes(v);
+      const inp = qBody.querySelector("#typeInput");
 
       if(ok){
         beep("ok");
         setStatus("ĐÚNG ✅");
-        // animate input
-        const inp = qBody.querySelector("#typeInput");
         inp.classList.add("pop");
         inp.style.borderColor = "rgba(37,211,102,.95)";
         inp.style.outline = "2px solid rgba(37,211,102,.22)";
       }else{
         beep("bad");
         setStatus("SAI ❌");
-        const inp = qBody.querySelector("#typeInput");
         inp.classList.add("shake");
         inp.style.borderColor = "rgba(255,77,77,.95)";
         inp.style.outline = "2px solid rgba(255,77,77,.22)";
       }
 
       const correctDisplay = "Đáp án đúng gợi ý: " + q.accepted[0];
-      showExplain(`${correctDisplay}\n\nGiải thích: ${q.explain}`, q);
+      showExplain(`${correctDisplay}\n\nGiải thích: ${q.explain}`);
 
       nextBtn.disabled = false;
       barFill.style.width = `${((idx+1)/QUESTIONS.length)*100}%`;
@@ -1111,27 +1025,18 @@
         blankEl.classList.add("pop");
         blankEl.style.borderColor = "rgba(37,211,102,.95)";
         blankEl.style.background = "rgba(37,211,102,.14)";
+        showExplain(q.explain);
       }else{
         beep("bad");
         setStatus("SAI ❌");
         blankEl.classList.add("shake");
         blankEl.style.borderColor = "rgba(255,77,77,.95)";
         blankEl.style.background = "rgba(255,77,77,.12)";
-        // show correct
-        showExplain(`Đáp án đúng: "${q.correctToken}"\n\nGiải thích: ${q.explain}`, q);
-      }
-
-      if(ok){
-        showExplain(q.explain, q);
+        showExplain(`Đáp án đúng: "${q.correctToken}"\n\nGiải thích: ${q.explain}`);
       }
 
       nextBtn.disabled = false;
       barFill.style.width = `${((idx+1)/QUESTIONS.length)*100}%`;
-    }
-
-    function showExplain(text, q){
-      explainBox.style.display = "block";
-      explainBox.textContent = text;
     }
 
     /********************
@@ -1140,21 +1045,16 @@
     hintBtn.addEventListener("click", ()=>{
       const q = QUESTIONS[idx];
       beep("click");
+      hintBtn.textContent = "💡 Hint (đã mở)";
 
       if(q.type==="MCQ"){
-        // a gentle hint
-        hintBtn.textContent = "💡 Hint (đã mở)";
-        showExplain("Gợi ý: nhớ công thức.\n- Past Simple Passive: was/were + V3\n- Modal Passive: modal + be + V3", q);
-        setStatus("Đã bật hint 💡");
+        showExplain("Gợi ý:\n- Past Simple Passive: was/were + V3\n- Modal Passive: modal + be + V3");
       }else if(q.type==="TYPE"){
-        hintBtn.textContent = "💡 Hint (đã mở)";
-        showExplain(`Hint: ${q.hint}\nVí dụ mẫu: "The window was broken yesterday"`, q);
-        setStatus("Đã bật hint 💡");
+        showExplain(`Hint: ${q.hint}\nVí dụ mẫu: "The window was broken yesterday"`);
       }else{
-        hintBtn.textContent = "💡 Hint (đã mở)";
-        showExplain(`Hint: ${q.hint}`, q);
-        setStatus("Đã bật hint 💡");
+        showExplain(`Hint: ${q.hint}`);
       }
+      setStatus("Đã bật hint 💡");
     });
 
     nextBtn.addEventListener("click", ()=>{
@@ -1167,7 +1067,6 @@
         idx++;
         render();
       }else{
-        // end screen
         qTitle.textContent = "🎉 Hoàn thành!";
         qInstruction.textContent = "Bạn đã làm xong 10 câu ôn tập Passive Voice.";
         qBody.innerHTML = `
@@ -1175,22 +1074,19 @@
             <div class="sentence">
               <div style="font-size:18px;font-weight:1000">Bạn đã hoàn thành toàn bộ câu hỏi ✅</div>
               <div style="color:rgba(234,240,255,.7);margin-top:8px;line-height:1.55">
-                Hãy nhấn 🔄 để chơi lại, hoặc mở 🎡 để gọi bạn lên bảng nhé!
+                Nhấn 🔄 để chơi lại, hoặc mở 🎡 để gọi bạn lên bảng nhé!
               </div>
             </div>
-            <button class="btn" id="summaryBtn">📌 Xem tóm tắt công thức</button>
+            <button class="iconbtn" id="summaryBtn" style="width:100%;padding:14px;border-radius:16px;">📌 Xem tóm tắt công thức</button>
           </div>
         `;
         nextBtn.disabled = true;
-        updateProgress();
         barFill.style.width = "100%";
         setStatus("Kết thúc game show 🎬");
 
-        const summaryBtn = document.getElementById("summaryBtn");
-        summaryBtn.addEventListener("click", ()=>{
+        document.getElementById("summaryBtn").addEventListener("click", ()=>{
           showExplain(
-            "TÓM TẮT:\n\n1) Past Simple Passive:\nS + was/were + V3\nS + was/were + not + V3\nWas/Were + S + V3?\n\n2) Modal Passive:\nS + modal + be + V3\nS + modal + not + be + V3\nModal + S + be + V3?",
-            {}
+            "TÓM TẮT:\n\n1) Past Simple Passive:\nS + was/were + V3\nS + was/were + not + V3\nWas/Were + S + V3?\n\n2) Modal Passive:\nS + modal + be + V3\nS + modal + not + be + V3\nModal + S + be + V3?"
           );
         });
       }
@@ -1207,11 +1103,9 @@
 
     el("spinBtn").addEventListener("click", async ()=>{
       beep("click");
-      // animate rolling numbers
       const rounds = 18 + Math.floor(Math.random()*8);
       for(let i=0;i<rounds;i++){
-        const n = 1 + Math.floor(Math.random()*35);
-        spinNumber.textContent = n;
+        spinNumber.textContent = 1 + Math.floor(Math.random()*35);
         await delay(60 + i*6);
       }
       const final = 1 + Math.floor(Math.random()*35);
@@ -1241,7 +1135,6 @@
       setStatus(soundOn ? "Bật âm thanh 🔊" : "Tắt âm thanh 🔇");
       beep("click");
     });
-
     el("restartBtn").addEventListener("click", ()=>{
       beep("click");
       idx = 0;
@@ -1249,20 +1142,8 @@
       setStatus("Chơi lại từ đầu 🔄");
     });
 
-    /********************
-     * Security: basic escape
-     ********************/
-    function escapeHtml(str){
-      return (str+"")
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;");
-    }
-
     // init
     render();
   </script>
 </body>
 </html>
-
