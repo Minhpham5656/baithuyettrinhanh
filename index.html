@@ -410,10 +410,10 @@
   <div class="wrap">
     <div class="top">
       <div class="title">
-        <div class="badge">Group 1</div>
+        <div class="badge">Group   1</div>
         <div>
-          <h1>Game Show: Passive Voice</h1>
-          <div class="sub">10 câu ôn tập: <b>Past Simple Passive</b> & <b>Modal Passive</b> • Kéo thả / Trắc nghiệm / Tự nhập</div>
+          <h1>Luyện tập: Passive Voice</h1>
+          <div class="sub">10 câu ôn tập: <b>Past Simple Passive</b> & <b>Modal Passive</b> • Kéo thả / Trắc nghiệm / Tự luận</div>
         </div>
       </div>
 
@@ -447,7 +447,7 @@
 
       <div id="qBody"></div>
       <div class="explain" id="explainBox" style="display:none;"></div>
-      <div class="tiny">Tip: Với câu tự nhập, không phân biệt hoa thường và không cần dấu chấm/dấu hỏi.</div>
+      <div class="tiny">Tip: Với câu tự luận, không phân biệt hoa thường và không cần dấu chấm/dấu hỏi.</div>
     </div>
   </div>
 
@@ -523,7 +523,7 @@
         type: "MCQ",
         skill: "Past Simple Passive",
         title: "Chọn câu bị động đúng (Quá khứ đơn)",
-        instruction: "Chọn đáp án → hệ thống hỏi “Chốt đáp án?”",
+        instruction: "Chọn đáp án đúng nhất”",
         prompt: "They built this bridge in 2010.",
         choices: [
           "This bridge built in 2010.",
@@ -537,7 +537,7 @@
       { // 2 TYPE
         type: "TYPE",
         skill: "Past Simple Passive (Negative)",
-        title: "Tự nhập: đổi sang bị động (phủ định)",
+        title: "Tự luận: đổi sang bị động (phủ định)",
         instruction: "Viết câu bị động QKĐ phủ định. Không cần dấu chấm. Không phân biệt hoa/thường.",
         prompt: "They did not finish the homework.",
         accepted: [
@@ -578,7 +578,7 @@
       { // 5 TYPE
         type: "TYPE",
         skill: "Past Simple Passive (Question)",
-        title: "Tự nhập: câu hỏi Yes/No (bị động QKĐ)",
+        title: "Tự luận: câu hỏi Yes/No (bị động QKĐ)",
         instruction: "Viết câu hỏi bị động đúng. Không cần dấu hỏi. Không phân biệt hoa/thường.",
         prompt: "Did they make these cakes yesterday?",
         accepted: [
@@ -617,7 +617,7 @@
       { // 8 TYPE
         type: "TYPE",
         skill: "Modal Passive (Negative)",
-        title: "Tự nhập: Modal bị động phủ định",
+        title: "Tự luận: Modal bị động phủ định",
         instruction: "Đổi sang bị động dùng “cannot”. Không cần dấu chấm.",
         prompt: "We cannot open this door.",
         accepted: [
@@ -816,7 +816,7 @@ function spinEnd(){
       resetForNewQuestion();
       updateProgress();
 
-      tagType.textContent = `TYPE: ${q.type === "MCQ" ? "TRẮC NGHIỆM" : (q.type==="TYPE" ? "TỰ NHẬP" : "KÉO THẢ")}`;
+      tagType.textContent = `TYPE: ${q.type === "MCQ" ? "TRẮC NGHIỆM" : (q.type==="TYPE" ? "TỰ LUẬN" : "KÉO THẢ")}`;
       tagSkill.textContent = `SKILL: ${q.skill}`;
 
       qTitle.textContent = q.title;
@@ -1212,6 +1212,7 @@ el("spinBtn").addEventListener("click", async ()=>{
   </script>
 </body>
 </html>
+
 
 
 
