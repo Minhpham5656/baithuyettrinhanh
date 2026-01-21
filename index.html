@@ -747,6 +747,75 @@
       o.start(now);
       o.stop(now+0.36);
     }
+    // ===== SPIN MUSIC (no mp3) =====
+let spinMusicNodes = null;
+
+function spinMusicStart(){
+  if(!soundOn) return;
+  ensureAudio();
+
+  // Nếu đang chạy thì thôi
+  if(spinMusicNodes) return;
+
+  const now = audioCtx.currentTime;
+
+  // 1) oscillator chính (nhạc nền)
+  const osc = audioCtx.createOscillator();
+  osc.type = "sawtooth";
+  osc.frequency.setValueAtTime(110, now); // nốt thấp kiểu “drone”
+
+  // 2) LFO để tạo rung rung (tremolo)
+  const lfo = audioCtx.createOscillator();
+  lfo.type = "sine";
+  lfo.frequency.setValueAtTime(7, now); // tốc độ rung (7Hz)
+
+  const lfoGain = audioCtx.createGain();
+  lfoGain.gain.setValueAtTime(0.12, now);
+
+  // 3) Gain chính
+  const gain = audioCtx.createGain();
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.exponentialRampToValueAtTime(0.12, now + 0.08); // fade in nhanh
+
+  // 4) Filter để nghe “điện tử”
+  const filter = audioCtx.createBiquadFilter();
+  filter.type = "lowpass";
+  filter.frequency.setValueAtTime(650, now);
+  filter.Q.setValueAtTime(8, now);
+
+  // LFO điều khiển gain tạo rung
+  lfo.connect(lfoGain);
+  lfoGain.connect(gain.gain);
+
+  // route: osc -> filter -> gain -> output
+  osc.connect(filter);
+  filter.connect(gain);
+  gain.connect(audioCtx.destination);
+
+  osc.start(now);
+  lfo.start(now);
+
+  spinMusicNodes = { osc, lfo, gain, filter };
+}
+
+function spinMusicStop(){
+  if(!spinMusicNodes || !audioCtx) return;
+
+  const now = audioCtx.currentTime;
+  const { osc, lfo, gain } = spinMusicNodes;
+
+  // fade out
+  gain.gain.cancelScheduledValues(now);
+  gain.gain.setValueAtTime(gain.gain.value || 0.1, now);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.25);
+
+  // stop sau khi fade
+  osc.stop(now + 0.28);
+  lfo.stop(now + 0.28);
+
+  spinMusicNodes = null;
+}
+
     function spinTick(step=0){
   if(!soundOn) return;
   ensureAudio();
@@ -1136,48 +1205,41 @@ function spinEnd(){
 el("spinBtn").addEventListener("click", async ()=>{
   beep("click");
 
-  // KHÓA nút để tránh bấm liên tục khi đang quay
+  // bắt đầu nhạc nền khi quay
+  spinMusicStart();
+
   const btn = el("spinBtn");
   btn.disabled = true;
   btn.textContent = "⏳ ĐANG QUAY...";
 
-  // ==========
-  // SPIN ~ 30s
-  // ==========
-  // 30 giây = 30000ms
-  // Ta cho quay khoảng 220–260 bước.
-  // Delay tăng từ 35ms lên ~220ms => tổng ~30s
-  const steps = 230 + Math.floor(Math.random() * 30); // 230–259 bước
-
-  // chọn số cuối ngay từ đầu để "kịch tính"
+  const steps = 245; // ~30s ổn định
   const final = 1 + Math.floor(Math.random() * 35);
 
   for(let i=0;i<steps;i++){
-    // trong lúc quay hiển thị số ngẫu nhiên
-    const n = 1 + Math.floor(Math.random() * 35);
-    spinNumber.textContent = n;
+    spinNumber.textContent = 1 + Math.floor(Math.random() * 35);
 
-    // tick sound (giảm tần suất cho đỡ ồn)
+    // tick (tuỳ bạn muốn giữ hay bỏ)
     if(i % 2 === 0) spinTick(i);
 
-    // ease-out: càng về cuối càng chậm
-    // delay tăng dần từ 35ms -> 220ms
     const t = i / (steps - 1);
-    const delayMs = 35 + (220 - 35) * (t * t); // t^2 => mượt
+    const delayMs = 35 + (220 - 35) * (t * t);
     await delay(delayMs);
   }
 
-  // chốt số cuối
+  // dừng nhạc nền
+  spinMusicStop();
+
+  // số cuối
   spinNumber.textContent = final;
   spinInvite.textContent = `Mời bạn số ${final} lên bảng`;
 
-  // ding kết thúc
+  // ding
   spinEnd();
 
-  // mở lại nút
   btn.disabled = false;
   btn.textContent = "🎲 QUAY";
 });
+
 
     el("copyBtn").addEventListener("click", async ()=>{
       const text = spinInvite.textContent || "";
@@ -1212,6 +1274,7 @@ el("spinBtn").addEventListener("click", async ()=>{
   </script>
 </body>
 </html>
+
 
 
 
