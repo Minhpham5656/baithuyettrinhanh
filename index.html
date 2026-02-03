@@ -388,104 +388,108 @@
 <body>
 
   <!-- FULLSCREEN GATE -->
-  <div id="fsGate">
+  <div id="fsGate" aria-labelledby="fsTitle" aria-describedby="fsTip">
     <div class="fsbox">
-      <div class="big">Luyện tập và vận dụng !</div>  
+      <div class="big" id="fsTitle">Luyện tập và vận dụng !</div>
       <div class="row">
         <button id="startFS" class="startbtn">▶ BẮT ĐẦU (FULLSCREEN)</button>
         <button id="skipFS" class="ghostbtn">Tiếp tục không fullscreen</button>
       </div>
 
-      <div class="tiny">
+      <div class="tiny" id="fsTip">
         Tip: khi fullscreen, nhấn <b>Esc</b> để thoát.
       </div>
     </div>
   </div>
 
-  <div class="wrap">
-    <div class="top">
-      <div class="title">
+  <div class="wrap page">
+    <header class="top page-header">
+      <div class="title page-title">
         <div class="badge">Group   1</div>
-        <div>
+        <div class="title-text">
           <h1>Luyện tập: Passive Voice</h1>
-          <div class="sub">10 câu ôn tập: <b>Past Simple Passive</b> & <b>Modal Passive</b> • Kéo thả / Trắc nghiệm / Tự luận</div>
+          <p class="sub">10 câu ôn tập: <b>Past Simple Passive</b> & <b>Modal Passive</b> • Kéo thả / Trắc nghiệm / Tự luận</p>
         </div>
       </div>
 
-      <div class="right-tools">
-        <button class="iconbtn" id="soundBtn" title="Bật/Tắt âm thanh">🔊</button>
-        <button class="iconbtn" id="toolboxBtn" title="Vòng quay gọi người lên bảng">🎡</button>
-        <button class="iconbtn" id="restartBtn" title="Chơi lại">🔄</button>
-      </div>
-    </div>
+      <nav class="right-tools header-actions" aria-label="Tiện ích">
+        <button class="iconbtn" id="soundBtn" title="Bật/Tắt âm thanh" type="button">🔊</button>
+        <button class="iconbtn" id="toolboxBtn" title="Vòng quay gọi người lên bảng" type="button">🎡</button>
+        <button class="iconbtn" id="restartBtn" title="Chơi lại" type="button">🔄</button>
+      </nav>
+    </header>
 
-    <div class="progress-card">
-      <div class="progress-line">
-        <div class="count" id="countText">Câu 1/10</div>
-        <div class="note" id="statusText">Chọn đáp án để bắt đầu 🎯</div>
-      </div>
-      <div class="bar"><div id="barFill"></div></div>
-
-      <div class="tags">
-        <div class="tag type" id="tagType">Kiểu: TRẮC NGHIỆM</div>
-        <div class="tag skill" id="tagSkill">Kĩ năng: Past Simple Passive</div>
-      </div>
-    </div>
-
-    <div class="card" id="card">
-      <div class="q-head">
-        <div>
-          <div class="q-title" id="qTitle">Loading…</div>
-          <div class="q-instruction" id="qInstruction"></div>
+    <main class="lesson-main">
+      <section class="progress-card lesson-progress" aria-live="polite">
+        <div class="progress-line">
+          <div class="count" id="countText">Câu 1/10</div>
+          <div class="note" id="statusText">Chọn đáp án để bắt đầu 🎯</div>
         </div>
-      </div>
+        <div class="bar"><div id="barFill"></div></div>
 
-      <div id="qBody"></div>
-      <div class="explain" id="explainBox" style="display:none;"></div>
-      <div class="tiny">Tip: Với câu tự luận, không phân biệt hoa thường và không cần dấu chấm/dấu hỏi.</div>
-    </div>
+        <div class="tags" aria-label="Thông tin bài học">
+          <div class="tag type" id="tagType">Kiểu: TRẮC NGHIỆM</div>
+          <div class="tag skill" id="tagSkill">Kĩ năng: Past Simple Passive</div>
+        </div>
+      </section>
+
+      <article class="card question-card" id="card">
+        <header class="q-head question-header">
+          <div>
+            <div class="q-title" id="qTitle">Loading…</div>
+            <div class="q-instruction" id="qInstruction"></div>
+          </div>
+        </header>
+
+        <section id="qBody" class="question-body" aria-live="polite"></section>
+        <aside class="explain" id="explainBox" style="display:none;"></aside>
+        <footer class="question-footer">
+          <div class="tiny">Tip: Với câu tự luận, không phân biệt hoa thường và không cần dấu chấm/dấu hỏi.</div>
+        </footer>
+      </article>
+    </main>
   </div>
 
   <!-- Bottom bar -->
   <div class="bottom">
     <div class="bottom-inner">
-      <button class="bbtn" id="hintBtn">💡 Gợi ý</button>
-      <button class="bbtn primary" id="nextBtn" disabled>Tiếp ➜</button>
+      <button class="bbtn" id="hintBtn" type="button">💡 Gợi ý</button>
+      <button class="bbtn primary" id="nextBtn" disabled type="button">Tiếp ➜</button>
     </div>
   </div>
 
   <!-- Confirm modal for MC -->
-  <div class="modal" id="confirmModal" aria-hidden="true">
+  <div class="modal" id="confirmModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="confirmTitle" aria-describedby="confirmText">
     <div class="modal-box">
-      <h3>Chốt đáp án .Bạn chắc chưa ,có muốn chọn lại không?</h3>
+      <h3 id="confirmTitle">Chốt đáp án .Bạn chắc chưa ,có muốn chọn lại không?</h3>
       <p id="confirmText">Bạn chọn: …</p>
       <div class="modal-actions">
-        <button class="bbtn primary" id="confirmYes">✅ Chốt</button>
-        <button class="bbtn" id="confirmNo">🔁 Đổi đáp án</button>
+        <button class="bbtn primary" id="confirmYes" type="button">✅ Chốt</button>
+        <button class="bbtn" id="confirmNo" type="button">🔁 Đổi đáp án</button>
       </div>
     </div>
   </div>
 
   <!-- Toolbox drawer -->
-  <div class="drawer" id="drawer">
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
+  <aside class="drawer" id="drawer" aria-label="Vòng quay may mắn">
+    <header class="drawer-header" style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
       <div>
         <h3>🎡 Vòng quay may mắn , ai cũng có phần !</h3>
         <div class="muted">Dùng để gọi bạn lên bảng. Nhấn “Quay” để ra số ngẫu nhiên.</div>
       </div>
-      <button class="iconbtn" id="closeDrawer">✖</button>
-    </div>
+      <button class="iconbtn" id="closeDrawer" type="button">✖</button>
+    </header>
 
-    <div class="spinbox">
+    <section class="spinbox">
       <div class="muted">Kết quả</div>
       <div class="number" id="spinNumber">—</div>
       <div class="invite" id="spinInvite">Mời bạn số … lên bảng</div>
-      <div style="display:flex;gap:10px;margin-top:12px;">
-        <button class="bbtn primary" id="spinBtn">🎲 QUAY</button>
-        <button class="bbtn" id="copyBtn">📋 Copy</button>
+      <div class="spin-actions" style="display:flex;gap:10px;margin-top:12px;">
+        <button class="bbtn primary" id="spinBtn" type="button">🎲 QUAY</button>
+        <button class="bbtn" id="copyBtn" type="button">📋 Copy</button>
       </div>
-    </div>
-  </div>
+    </section>
+  </aside>
 
   <script>
     /********************
